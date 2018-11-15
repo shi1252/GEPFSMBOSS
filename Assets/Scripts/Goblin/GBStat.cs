@@ -10,6 +10,7 @@ public class GBStat : CharacterStat {
 
     protected override void Awake()
     {
+        base.Awake();
         GoblinStatData stat = playerStat as GoblinStatData;
         Phase1HpPercent = stat.Phase1HpPercent;
         Phase2HpPercent = stat.Phase2HpPercent;

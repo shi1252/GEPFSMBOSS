@@ -128,6 +128,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     {
         SetState(MonsterState.IDLE);
         _playerTransform = null;
+        _playercc = null;
     }
 
     public void SetDeadState()

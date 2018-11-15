@@ -51,8 +51,12 @@ public static class GameLib
 
     public static bool DetectCharacter(Camera sight, CharacterController cc)
     {
-        Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
-        return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
+        if (cc)
+        {
+            Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
+            return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
+        }
+        return false;
     }
 
     public static void RotateFromTo(Transform from, Transform to)

@@ -22,10 +22,13 @@ public class GBIDLE : GBFSMState
     protected override void Update()
     {
         base.Update();
-        if (GameLib.DetectCharacter(_manager.Sight, _manager.PlayerCC))
+        if (_manager.PlayerTransform)
         {
-            _manager.SetState(GBState.CHASE);
-            return;
+            if (GameLib.DetectCharacter(_manager.Sight, _manager.PlayerCC))
+            {
+                _manager.SetState(GBState.CHASE);
+                return;
+            }
         }
 
         time += Time.deltaTime;

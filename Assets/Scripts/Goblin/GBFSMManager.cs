@@ -128,6 +128,7 @@ public class GBFSMManager : MonoBehaviour, IFSMManager
     {
         SetState(GBState.IDLE);
         _playerTransform = null;
+        _playercc = null;
     }
 
     public void SetDeadState()
