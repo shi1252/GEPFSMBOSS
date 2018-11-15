@@ -7,7 +7,21 @@ public class TargetCheckAttribute : System.Attribute
 }
 
 public static class GameLib
-{
+{ 
+    public static void AttackCheck(Transform from, Transform to)
+    {
+        CharacterStat fromStat = from.GetComponent<CharacterStat>();
+        if (Vector3.Distance(from.position, to.position) <= fromStat.AttackRange)
+        {
+            RotateFromTo(from, to);
+
+            CharacterStat toStat = to.GetComponent<CharacterStat>();
+
+            CharacterStat.ProcessDamage(fromStat, toStat);
+
+            RotateFromTo(to, from);
+        }
+    }
     public static void CKMove(this CharacterController cc,
         Vector3 targetPosition,
         CharacterStat stat)
@@ -39,5 +53,18 @@ public static class GameLib
     {
         Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
         return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
+    }
+
+    public static void RotateFromTo(Transform from, Transform to)
+    {
+        Vector3 moveDir = to.position - from.position;
+        moveDir.y = 0.0f;
+        if (moveDir != Vector3.zero)
+        {
+            from.rotation = Quaternion.RotateTowards(
+                from.rotation,
+                Quaternion.LookRotation(moveDir),
+                from.GetComponent<CharacterStat>().TurnSpeed);
+        }
     }
 }

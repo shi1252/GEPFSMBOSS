@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerDEAD : FSMState
 {
+    float time;
     public override void BeginState()
     {
         base.BeginState();
+        time = 2.0f;
     }
 
     public override void EndState()
@@ -17,6 +19,8 @@ public class PlayerDEAD : FSMState
     protected override void Update()
     {
         base.Update();
-
+        if (time <= 0)
+            Destroy(this.gameObject);
+        time -= Time.deltaTime;
     }
 }

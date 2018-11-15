@@ -17,7 +17,6 @@ public class PlayerAnimEvent : MonoBehaviour
         {
             attackState.AttackCheck();
         }
-        //transform.root.SendMessage("AttackCheck");
     }
 
 }

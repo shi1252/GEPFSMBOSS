@@ -9,7 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b0eaa74914b7174c918933777cfd6bb, type: 3}
-  m_Name: StatData
+  m_Name: PlayerStatData
   m_EditorClassIdentifier: 
   maxHp: 300
-  baseRange: 50
+  baseRange: 3
+  attackPoint: 50
+  moveSpeed: 10
+  defenseP: 10

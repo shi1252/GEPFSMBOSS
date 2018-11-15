@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterDEAD : MonsterFSMState {
-
+public class GBDEAD : GBFSMState
+{
     float time;
     public override void BeginState()
     {
@@ -18,7 +18,6 @@ public class MonsterDEAD : MonsterFSMState {
 
     protected override void Update()
     {
-        base.Update();
         if (time <= 0)
             Destroy(this.gameObject);
         time -= Time.deltaTime;

@@ -8,6 +8,7 @@ public class PlayerATTACK : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        GameLib.RotateFromTo(this.transform, _manager.Target);
     }
 
     public override void EndState()
@@ -18,17 +19,14 @@ public class PlayerATTACK : FSMState
     protected override void Update()
     {
         base.Update();
-
+        if (Vector3.Distance(transform.position, _manager.Target.position) > _manager.Stat.AttackRange)
+        {
+            _manager.SetState(PlayerState.CHASE);
+        }
     }
 
     public void AttackCheck()
     {
-        Debug.Log("AttackCheck");
-
-        CharacterStat targetStat =
-            _manager.Target.GetComponent<CharacterStat>();
-
-        CharacterStat.ProcessDamage(_manager.Stat, targetStat);
+        GameLib.AttackCheck(this.transform, _manager.Target);
     }
-
 }

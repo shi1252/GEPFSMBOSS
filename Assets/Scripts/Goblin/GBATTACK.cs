@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterATTACK : MonsterFSMState {
-
+public class GBATTACK : GBFSMState
+{
     public override void BeginState()
     {
         base.BeginState();
@@ -17,9 +17,10 @@ public class MonsterATTACK : MonsterFSMState {
 
     protected override void Update()
     {
+        base.Update();
         if (Vector3.Distance(_manager.PlayerTransform.position, transform.position) >= _manager.Stat.AttackRange)
         {
-            _manager.SetState(MonsterState.CHASE);
+            _manager.SetState(GBState.CHASE);
             return;
         }
     }

@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterState
+public enum GBState
 {
     IDLE = 0,
     PATROL,
     CHASE,
     ATTACK,
-    DEAD
+    DEAD,
 }
 
-[RequireComponent(typeof(MonsterStat))]
+[RequireComponent(typeof(GBStat))]
 [ExecuteInEditMode]
-public class MonsterFSMManager : MonoBehaviour, IFSMManager
+public class GBFSMManager : MonoBehaviour, IFSMManager
 {
     private bool _isinit = false;
-    public MonsterState startState = MonsterState.IDLE;
-    private Dictionary<MonsterState, MonsterFSMState> _states = new Dictionary<MonsterState, MonsterFSMState>();
+    public GBState startState = GBState.IDLE;
+    private Dictionary<GBState, GBFSMState> _states = new Dictionary<GBState, GBFSMState>();
 
     [SerializeField]
-    private MonsterState _currentState;
-    public MonsterState CurrentState
+    private GBState _currentState;
+    public GBState CurrentState
     {
         get
         {
@@ -29,7 +29,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
         }
     }
 
-    public MonsterFSMState CurrentStateComponent
+    public GBFSMState CurrentStateComponent
     {
         get { return _states[_currentState]; }
     }
@@ -43,8 +43,8 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     private Transform _playerTransform;
     public Transform PlayerTransform { get { return _playerTransform; } }
 
-    private MonsterStat _stat;
-    public MonsterStat Stat { get { return _stat; } }
+    private GBStat _stat;
+    public GBStat Stat { get { return _stat; } }
 
     private Animator _anim;
     public Animator Anim { get { return _anim; } }
@@ -57,21 +57,21 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     private void Awake()
     {
         _cc = GetComponent<CharacterController>();
-        _stat = GetComponent<MonsterStat>();
+        _stat = GetComponent<GBStat>();
         _anim = GetComponentInChildren<Animator>();
         _sight = GetComponentInChildren<Camera>();
 
         _playercc = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
         _playerTransform = _playercc.transform;
 
-        MonsterState[] stateValues = (MonsterState[])System.Enum.GetValues(typeof(MonsterState));
-        foreach (MonsterState s in stateValues)
+        GBState[] stateValues = (GBState[])System.Enum.GetValues(typeof(GBState));
+        foreach (GBState s in stateValues)
         {
-            System.Type FSMType = System.Type.GetType("Monster" + s.ToString());
-            MonsterFSMState state = (MonsterFSMState)GetComponent(FSMType);
+            System.Type FSMType = System.Type.GetType("GB" + s.ToString());
+            GBFSMState state = (GBFSMState)GetComponent(FSMType);
             if (null == state)
             {
-                state = (MonsterFSMState)gameObject.AddComponent(FSMType);
+                state = (GBFSMState)gameObject.AddComponent(FSMType);
             }
 
             _states.Add(s, state);
@@ -80,7 +80,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
 
     }
 
-    public void SetState(MonsterState newState)
+    public void SetState(GBState newState)
     {
         if (_isinit)
         {
@@ -126,12 +126,12 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
 
     public void NotifyTargetKilled()
     {
-        SetState(MonsterState.IDLE);
+        SetState(GBState.IDLE);
         _playerTransform = null;
     }
 
     public void SetDeadState()
     {
-        SetState(MonsterState.DEAD);
+        SetState(GBState.DEAD);
     }
 }

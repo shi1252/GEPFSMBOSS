@@ -28,26 +28,6 @@ public class PlayerRUN : FSMState {
             return;
         }
 
-        //Vector3 deltaMove = Vector3.zero;
-        //Vector3 moveDir = _manager.Marker.position - transform.position;
-        //moveDir.y = 0.0f;
-        //if(moveDir != Vector3.zero)
-        //{
-        //    transform.rotation = Quaternion.RotateTowards(
-        //        transform.rotation,
-        //        Quaternion.LookRotation(moveDir),
-        //        _manager.Stat.TurnSpeed * Time.deltaTime);
-        //}
-
-        //Vector3 nextMove = Vector3.MoveTowards(
-        //    transform.position,
-        //    _manager.Marker.position,
-        //    _manager.Stat.MoveSpeed * Time.deltaTime);
-
-        //deltaMove = nextMove - transform.position;
-        //deltaMove += Physics.gravity * Time.deltaTime;
-        //_manager.CC.Move(deltaMove);
-
         _manager.CC.CKMove(_manager.Marker.position, _manager.Stat);
     }
 

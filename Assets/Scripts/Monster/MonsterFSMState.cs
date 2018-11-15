@@ -22,4 +22,15 @@ public class MonsterFSMState : MonoBehaviour
     {
 
     }
+
+    protected virtual void Update()
+    {
+        if (GetType().IsDefined(typeof(TargetCheckAttribute), false))
+        {
+            if (_manager.PlayerTransform == null)
+            {
+                _manager.SetState(MonsterState.IDLE);
+            }
+        }
+    }
 }

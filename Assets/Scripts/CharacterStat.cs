@@ -20,11 +20,30 @@ public class CharacterStat : MonoBehaviour
     private float _attackRange = 2.0f;
     public float AttackRange { get { return _attackRange; } }
 
+    [SerializeField]
+    private float _attackPoint = 50.0f;
+    public float AttackPoint { set { _attackPoint = value; } get { return _attackPoint; } }
+
+    [SerializeField]
+    private float _defensePercent = 0.0f;
+    public float DefensePercent { set { _defensePercent = value; } get { return _defensePercent; } }
+
     public CharacterStat lastHitBy = null;
+
+    public StatData playerStat;
+
+    protected virtual void Awake()
+    {
+        _hp = playerStat.maxHp;
+        _moveSpeed = playerStat.moveSpeed;
+        _attackRange = playerStat.baseRange;
+        _attackPoint = playerStat.attackPoint;
+        _defensePercent = playerStat.defenseP / 100.0f;
+    }
 
     public void TakeDamage(CharacterStat from, float damage)
     {
-        _hp = Mathf.Clamp(_hp - damage, 0, 100);
+        _hp = Mathf.Clamp(_hp - damage, 0, playerStat.maxHp);
         if(_hp <= 0)
         {
             if (lastHitBy == null)
@@ -38,7 +57,7 @@ public class CharacterStat : MonoBehaviour
 
     private static float CalcDamage(CharacterStat from, CharacterStat to)
     {
-        return 50.0f;
+        return from.AttackPoint * (1 - to.DefensePercent);
     }
 
     public static void ProcessDamage(CharacterStat from, CharacterStat to)
