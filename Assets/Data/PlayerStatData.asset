@@ -15,4 +15,4 @@ MonoBehaviour:
   baseRange: 3
   attackPoint: 50
   moveSpeed: 10
-  defenseP: 10
+  defenseP: 20

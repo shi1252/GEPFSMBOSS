@@ -13,4 +13,13 @@ public class CreateStatDataClass
         AssetDatabase.SaveAssets();
         return asset;
     }
+
+    [MenuItem("Assets/FSM/GoblinStatData")]
+    public static StatData CreateGoblinStatData()
+    {
+        StatData asset = ScriptableObject.CreateInstance<GoblinStatData>();
+        AssetDatabase.CreateAsset(asset, "Assets/Data/GoblinStatData.asset");
+        AssetDatabase.SaveAssets();
+        return asset;
+    }
 }
